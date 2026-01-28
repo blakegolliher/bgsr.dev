@@ -1,0 +1,26 @@
+[
+  {
+    "company": "Vast Data",
+    "role": "Field CTO",
+    "period": "2025 - Present",
+    "description": "Technical leadership and strategic guidance for enterprise data infrastructure solutions."
+  },
+  {
+    "company": "Tesla",
+    "role": "Senior Mananger AutoPilot Storage",
+    "period": "2022 - 2025",
+    "description": "Leading platform engineering initiatives for infrastructure automation and developer experience."
+  },
+  {
+    "company": "Box",
+    "role": "Senior Manager Storage / Observabilty / Analytics Engineering",
+    "period": "2018 - 2021",
+    "description": "nfrastructure and platform systems for enterprise cloud storage."
+  },
+  {
+    "company": "Apple",
+    "role": "Manager Storage SRE",
+    "period": "2011 - 2016",
+    "description": "Infrastructure engineering for large-scale systems and services."
+  }
+]

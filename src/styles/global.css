@@ -1,0 +1,241 @@
+/* Terminal Theme - Green/Amber Retro */
+:root {
+  /* Green phosphor */
+  --green-bright: #39ff14;
+  --green-primary: #00ff00;
+  --green-dim: #00cc00;
+  --green-glow: rgba(0, 255, 0, 0.4);
+
+  /* Amber phosphor */
+  --amber-bright: #ffbf00;
+  --amber-primary: #ff9500;
+  --amber-dim: #cc7a00;
+  --amber-glow: rgba(255, 149, 0, 0.4);
+
+  /* Background */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-terminal: #0d0d0d;
+
+  /* Text */
+  --text-primary: var(--green-primary);
+  --text-secondary: var(--green-dim);
+  --text-bright: var(--green-bright);
+  --text-glow: var(--green-glow);
+
+  /* Accent (amber for highlights) */
+  --accent-primary: var(--amber-primary);
+  --accent-bright: var(--amber-bright);
+  --accent-glow: var(--amber-glow);
+
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+
+  /* Typography */
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', Consolas, monospace;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 3rem;
+
+  /* Effects */
+  --scanline-opacity: 0.03;
+  --glow-strength: 8px;
+}
+
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Scanlines overlay */
+.scanlines {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, var(--scanline-opacity)),
+    rgba(0, 0, 0, var(--scanline-opacity)) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+/* CRT screen effect */
+.crt-effect {
+  animation: flicker 0.15s infinite;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.98; }
+}
+
+/* Text glow effect */
+.glow {
+  text-shadow:
+    0 0 5px var(--text-glow),
+    0 0 10px var(--text-glow),
+    0 0 20px var(--text-glow);
+}
+
+.glow-amber {
+  text-shadow:
+    0 0 5px var(--accent-glow),
+    0 0 10px var(--accent-glow),
+    0 0 20px var(--accent-glow);
+}
+
+/* Typing animation */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink-caret {
+  0%, 50% { border-color: var(--text-primary); }
+  51%, 100% { border-color: transparent; }
+}
+
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid var(--text-primary);
+  animation:
+    typing 3s steps(40, end),
+    blink-caret 0.75s step-end infinite;
+}
+
+/* Cursor blink */
+@keyframes cursor-blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.2em;
+  background-color: var(--text-primary);
+  animation: cursor-blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
+/* Links */
+a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-bright);
+  text-shadow: 0 0 8px var(--accent-glow);
+}
+
+/* Container */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+
+/* Sections */
+section {
+  padding: var(--space-xl) 0;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  color: var(--text-bright);
+  font-weight: 600;
+  margin-bottom: var(--space-md);
+}
+
+h1 {
+  font-size: var(--font-size-3xl);
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--accent-primary);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+}
+
+/* Utility classes */
+.text-green { color: var(--text-primary); }
+.text-amber { color: var(--accent-primary); }
+.text-dim { color: var(--text-secondary); }
+.text-bright { color: var(--text-bright); }
+
+.mt-sm { margin-top: var(--space-sm); }
+.mt-md { margin-top: var(--space-md); }
+.mt-lg { margin-top: var(--space-lg); }
+.mb-sm { margin-bottom: var(--space-sm); }
+.mb-md { margin-bottom: var(--space-md); }
+.mb-lg { margin-bottom: var(--space-lg); }
+
+/* Terminal prompt style */
+.prompt::before {
+  content: '> ';
+  color: var(--accent-primary);
+}
+
+.prompt-user::before {
+  content: 'blake@bgsr.dev:~$ ';
+  color: var(--text-secondary);
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    --font-size-3xl: 2rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-xl: 1.25rem;
+  }
+
+  .container {
+    padding: 0 var(--space-md);
+  }
+}

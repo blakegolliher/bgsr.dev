@@ -1,0 +1,30 @@
+[
+  {
+    "name": "nfs-gaze",
+    "description": "Real-time NFS performance monitoring with per-operation observability. Built for infrastructure engineers who need deep visibility into NFS workloads.",
+    "language": "Rust",
+    "url": "https://github.com/blakegolliher/nfs-gaze",
+    "stars": 1
+  },
+  {
+    "name": "s3slower",
+    "description": "Simple S3 latency monitor. Track and analyze S3 request performance in real-time.",
+    "language": "Go",
+    "url": "https://github.com/blakegolliher/s3slower",
+    "stars": 1
+  },
+  {
+    "name": "forkspoon",
+    "description": "Dual-path filesystem tool. Fork = Multiple paths (cache vs backend), Spoon = Efficiently serving data to applications.",
+    "language": "Shell",
+    "url": "https://github.com/blakegolliher/forkspoon",
+    "stars": 0
+  },
+  {
+    "name": "nfs-walker",
+    "description": "NFS exploration and analysis tool for traversing and understanding NFS filesystem structures.",
+    "language": "Rust",
+    "url": "https://github.com/blakegolliher/nfs-walker",
+    "stars": 2
+  }
+]

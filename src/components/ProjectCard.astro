@@ -1,0 +1,111 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  language: string;
+  url: string;
+  stars?: number;
+}
+
+const { name, description, language, url, stars } = Astro.props;
+
+const languageColors: Record<string, string> = {
+  Rust: '#dea584',
+  Go: '#00add8',
+  Shell: '#89e051',
+  JavaScript: '#f1e05a',
+  TypeScript: '#3178c6',
+  Python: '#3572A5',
+};
+
+const langColor = languageColors[language] || 'var(--text-primary)';
+---
+
+<a href={url} target="_blank" rel="noopener noreferrer" class="project-card">
+  <div class="project-header">
+    <span class="project-icon">📁</span>
+    <h3 class="project-name">{name}</h3>
+  </div>
+  <p class="project-description">{description}</p>
+  <div class="project-footer">
+    <span class="project-language">
+      <span class="lang-dot" style={`background-color: ${langColor}`}></span>
+      {language}
+    </span>
+    {stars !== undefined && stars > 0 && (
+      <span class="project-stars">★ {stars}</span>
+    )}
+  </div>
+</a>
+
+<style>
+  .project-card {
+    display: block;
+    background: var(--bg-terminal);
+    border: 1px solid var(--text-secondary);
+    border-radius: 6px;
+    padding: var(--space-lg);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .project-card:hover {
+    border-color: var(--text-primary);
+    box-shadow:
+      0 0 20px var(--text-glow),
+      0 0 40px rgba(0, 255, 0, 0.1);
+    transform: translateY(-2px);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-sm);
+  }
+
+  .project-icon {
+    font-size: 1.2em;
+  }
+
+  .project-name {
+    color: var(--accent-primary);
+    font-size: var(--font-size-lg);
+    margin: 0;
+  }
+
+  .project-card:hover .project-name {
+    text-shadow: 0 0 10px var(--accent-glow);
+  }
+
+  .project-description {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+    margin-bottom: var(--space-md);
+  }
+
+  .project-footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .project-language {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--text-secondary);
+  }
+
+  .lang-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .project-stars {
+    color: var(--amber-primary);
+  }
+</style>
