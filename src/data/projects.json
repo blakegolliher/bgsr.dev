@@ -1,30 +1,58 @@
 [
   {
-    "name": "nfs-gaze",
-    "description": "Real-time NFS performance monitoring with per-operation observability. Built for infrastructure engineers who need deep visibility into NFS workloads.",
-    "language": "Rust",
-    "url": "https://github.com/blakegolliher/nfs-gaze",
-    "stars": 1
+    "id": "shunt",
+    "name": "shunt",
+    "url": "https://github.com/blakegolliher/shunt",
+    "kinds": "S3, Go",
+    "summary": "An S3 proxy that moves a live bucket from one cluster to another while clients keep reading and writing it. Same endpoint, same bucket name, same keys. When the move is done, it steps out of the way.",
+    "note": "Proof of concept. It has run on Garage, MinIO and VAST."
   },
   {
-    "name": "s3slower",
-    "description": "Simple S3 latency monitor. Track and analyze S3 request performance in real-time.",
-    "language": "Go",
-    "url": "https://github.com/blakegolliher/s3slower",
-    "stars": 1
+    "id": "mongoose",
+    "name": "mongoose",
+    "url": "https://github.com/blakegolliher/mongoose",
+    "kinds": "NFS, Rust",
+    "summary": "Copies everything under one NFS path to another, keeps the copy current while people still use the old server, and cuts over only when every file reads back identical from both.",
+    "note": "One static binary. It speaks NFSv3 itself, so nothing gets mounted."
   },
   {
-    "name": "forkspoon",
-    "description": "Dual-path filesystem tool. Fork = Multiple paths (cache vs backend), Spoon = Efficiently serving data to applications.",
-    "language": "Shell",
-    "url": "https://github.com/blakegolliher/forkspoon",
-    "stars": 0
+    "id": "vamoose",
+    "name": "vamoose",
+    "url": "https://github.com/blakegolliher/vamoose",
+    "kinds": "NFS, S3, Rust",
+    "summary": "The distributed edition of mongoose. Workers on many hosts copy NFS to NFS from a Parquet index and claim shards with conditional writes in S3, so no central service decides who copies what.",
+    "note": "An optional coordinator and terminal dashboard add stop, resume and abort."
   },
   {
+    "id": "nfs-walker",
     "name": "nfs-walker",
-    "description": "NFS exploration and analysis tool for traversing and understanding NFS filesystem structures.",
-    "language": "Rust",
     "url": "https://github.com/blakegolliher/nfs-walker",
-    "stars": 2
+    "kinds": "NFS, Rust",
+    "summary": "Walks an NFS export with READDIRPLUS and work-stealing threads, and streams every entry into sharded Parquet. The same binary serves a web dashboard that runs 36 queries over the scan.",
+    "note": "810 million files in under 20 minutes, from one host."
+  },
+  {
+    "id": "nfs-gaze",
+    "name": "nfs-gaze",
+    "url": "https://github.com/blakegolliher/nfs-gaze",
+    "kinds": "NFS, Rust",
+    "summary": "Watches NFS client latency one operation at a time, READ, WRITE, GETATTR and the rest, straight from /proc/self/mountstats. No kernel module, no eBPF.",
+    "note": "Filter to the ops you care about, snapshot to JSON, export to Prometheus."
+  },
+  {
+    "id": "s3slower",
+    "name": "s3slower",
+    "url": "https://github.com/blakegolliher/s3slower",
+    "kinds": "S3, eBPF, Go",
+    "summary": "Times every S3 request leaving a Linux host from inside the TLS libraries, with eBPF. It works with any client and needs no SDK wrapper, no proxy and no code change.",
+    "note": "Prometheus metrics on port 9000, installed as one RPM."
+  },
+  {
+    "id": "vast-bucket-policy-manager",
+    "name": "vast-bucket-policy-manager",
+    "url": "https://github.com/blakegolliher/vast-bucket-policy-manager",
+    "kinds": "S3, TUI, Go",
+    "summary": "A terminal UI for listing, editing and applying S3 bucket policies on VAST, AWS or any S3 store. It checks the JSON and the IAM structure as you type.",
+    "note": "Every save and delete writes a before-and-after backup first."
   }
 ]

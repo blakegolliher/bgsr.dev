@@ -1,0 +1,26 @@
+---
+// vast-bucket-policy-manager's TUI. Without script it shows the saved, valid policy.
+import { render, STILL_MS } from '../../scripts/screens/policy';
+const screen = render(STILL_MS);
+---
+
+<figure class="demo demo--term" data-ui data-demo="policy">
+  <div class="demo__inner">
+    <pre class="term" aria-hidden="true" data-term set:html={screen}></pre>
+  </div>
+  <figcaption class="sr-only">
+    Animation of vast-bucket-policy-manager: a profile is picked, the bucket list loads, and the
+    bucket policy opens in the editor with a typo, which the validator flags. The typo is fixed in
+    INSERT mode, the policy validates, and saving writes a backup before the bucket is changed.
+  </figcaption>
+</figure>
+
+<script>
+  import { animate, reducedMotion } from '../../scripts/demo-kit';
+  import { render, LOOP_MS } from '../../scripts/screens/policy';
+
+  document.querySelectorAll<HTMLElement>('[data-demo="policy"]').forEach((root) => {
+    if (reducedMotion()) return;
+    animate(root, root.querySelector<HTMLElement>('[data-term]')!, { t: 0 }, (s, dt) => { s.t = (s.t + dt) % LOOP_MS; }, (s) => render(s.t));
+  });
+</script>

@@ -1,0 +1,72 @@
+---
+// A quiet close: the email screen above is the page's ending, so the footer only
+// carries the tool links, the picture credit and the legal line.
+import projects from '../data/projects.json';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="footer__row">
+    <ul class="footer__tools" aria-label="Tools on GitHub">
+      {projects.map((p) => (
+        <li><a class="link" href={p.url}>{p.name}</a></li>
+      ))}
+    </ul>
+    <p class="footer__credit">
+      Rail yard photograph by Jack Delano, 1942, for the Farm Security Administration. Library of
+      Congress, public domain, via{' '}
+      <a class="link" href="https://commons.wikimedia.org/wiki/File:General_view_of_the_hump_yard_at_Proviso_yard,_C_%26_NW_RR_(i.e._Chicago_and_North_Western_railroad),_Chicago,_Ill._LCCN2017878012.tif">Wikimedia Commons</a>.
+    </p>
+    <p class="footer__built">Built with Astro, set in Cabinet Grotesk and IBM Plex Mono.</p>
+  </div>
+
+  <div class="footer__legal">
+    <p>© {year} Blake Golliher</p>
+    <a class="link" href="#top">Back to top</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    padding: clamp(2.5rem, 6vw, 4rem) var(--margin) var(--margin);
+    background: var(--bg);
+    font-size: var(--step-small);
+  }
+
+  .footer__row {
+    display: grid;
+    gap: 1.5rem var(--gutter);
+  }
+  .footer__tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem var(--gutter);
+  }
+  .footer__tools a,
+  .footer__legal a {
+    display: inline-flex;
+    min-height: 32px;
+    align-items: center;
+  }
+  .footer__credit,
+  .footer__built { max-width: 42ch; }
+
+  .footer__legal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  @media (min-width: 900px) {
+    .footer__row {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      align-items: start;
+    }
+    .footer__tools { grid-column: 1 / 6; }
+    .footer__credit { grid-column: 7 / 10; }
+    /* right-aligned so it shares the right margin with "Back to top" below it */
+    .footer__built { grid-column: 10 / 13; justify-self: end; text-align: right; }
+  }
+</style>

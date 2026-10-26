@@ -1,0 +1,27 @@
+---
+// nfs-gaze's live per-operation view. Without script it shows one quiet second.
+import { render, create } from '../../scripts/screens/gaze';
+const screen = render(create());
+---
+
+<figure class="demo demo--term" data-ui data-demo="gaze">
+  <div class="demo__inner">
+    <pre class="term" aria-hidden="true" data-term set:html={screen}></pre>
+  </div>
+  <figcaption class="sr-only">
+    Animation of nfs-gaze watching an NFS mount: IOPS, round-trip time and execute time for each NFS
+    operation, refreshed every second from /proc/self/mountstats. A write latency spike lights up the
+    WRITE row, then the view is filtered to the metadata operations GETATTR, LOOKUP, ACCESS and
+    READDIRPLUS.
+  </figcaption>
+</figure>
+
+<script>
+  import { animate, reducedMotion } from '../../scripts/demo-kit';
+  import { create, step, render } from '../../scripts/screens/gaze';
+
+  document.querySelectorAll<HTMLElement>('[data-demo="gaze"]').forEach((root) => {
+    if (reducedMotion()) return;
+    animate(root, root.querySelector<HTMLElement>('[data-term]')!, create(), step, render);
+  });
+</script>
