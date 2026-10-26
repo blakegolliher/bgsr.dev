@@ -1,233 +1,35 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Terminal from '../components/Terminal.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import ExperienceItem from '../components/ExperienceItem.astro';
-import projects from '../data/projects.json';
-import experience from '../data/experience.json';
+import Hero from '../components/Hero.astro';
+import Tools from '../components/Tools.astro';
+import Career from '../components/Career.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<Layout title="Blake Golliher | bgsr.dev">
-  <div class="container">
-    <!-- Hero Section -->
-    <section class="hero">
-      <h1 class="hero-title glow">Blake Golliher</h1>
-      <p class="hero-tagline">
-        <span class="typewriter-text">bringing world domination to your organization</span>
-        <span class="cursor"></span>
-      </p>
-      <p class="hero-subtitle text-dim">
-        Field CTO @ Vast Data • Infrastructure Enthusiast • Rust & Go Builder
-      </p>
-      <nav class="hero-nav">
-        <a href="#projects">projects</a>
-        <span class="nav-sep">|</span>
-        <a href="#experience">experience</a>
-        <span class="nav-sep">|</span>
-        <a href="#contact">contact</a>
-      </nav>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="projects">
-      <h2 class="section-title">
-        <span class="text-amber">~/</span>projects
-      </h2>
-      <Terminal title="github.com/blakegolliher">
-        <div class="projects-grid">
-          {projects.map((project) => (
-            <ProjectCard
-              name={project.name}
-              description={project.description}
-              language={project.language}
-              url={project.url}
-              stars={project.stars}
-            />
-          ))}
-        </div>
-      </Terminal>
-    </section>
-
-    <!-- Experience Section -->
-    <section id="experience" class="experience">
-      <h2 class="section-title">
-        <span class="text-amber">~/</span>experience
-      </h2>
-      <Terminal title="career.log">
-        <div class="experience-list">
-          {experience.map((job) => (
-            <ExperienceItem
-              company={job.company}
-              role={job.role}
-              period={job.period}
-              description={job.description}
-            />
-          ))}
-        </div>
-      </Terminal>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="skills">
-      <h2 class="section-title">
-        <span class="text-amber">~/</span>skills
-      </h2>
-      <Terminal title="cat skills.txt">
-        <div class="skills-output">
-          <p class="skill-line"><span class="text-amber">languages:</span> Rust, Go, Python, Shell, JavaScript</p>
-          <p class="skill-line"><span class="text-amber">infrastructure:</span> Kubernetes, Terraform, AWS, GCP</p>
-          <p class="skill-line"><span class="text-amber">storage:</span> NFS, S3, distributed filesystems</p>
-          <p class="skill-line"><span class="text-amber">focus:</span> Platform Engineering, Observability, Performance</p>
-        </div>
-      </Terminal>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-      <h2 class="section-title">
-        <span class="text-amber">~/</span>contact
-      </h2>
-      <Terminal title="connection established">
-        <div class="contact-content">
-          <p class="contact-line">
-            <span class="text-dim">[</span>
-            <span class="text-amber">github</span>
-            <span class="text-dim">]</span>
-            <a href="https://github.com/blakegolliher" target="_blank" rel="noopener">github.com/blakegolliher</a>
-          </p>
-          <p class="contact-line">
-            <span class="text-dim">[</span>
-            <span class="text-amber">email</span>
-            <span class="text-dim">]</span>
-            <a href="mailto:blakegolliher@gmail.com">blakegolliher@gmail.com</a>
-          </p>
-          <p class="contact-line">
-            <span class="text-dim">[</span>
-            <span class="text-amber">web</span>
-            <span class="text-dim">]</span>
-            <span class="text-green">bgsr.dev</span>
-          </p>
-        </div>
-      </Terminal>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <p class="text-dim">
-        &copy; {new Date().getFullYear()} Blake Golliher • built with
-        <a href="https://astro.build" target="_blank" rel="noopener">Astro</a>
-        • <span class="text-green">EOF</span>
-      </p>
-    </footer>
-  </div>
+<Layout title="Blake Golliher, storage engineer">
+  <main>
+    <Hero />
+    <Tools />
+    <Career />
+    <Contact />
+  </main>
+  <Footer />
 </Layout>
 
-<style>
-  /* Hero */
-  .hero {
-    min-height: 80vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    padding: var(--space-xl) 0;
+<script>
+  // Section entrances: each part rises once as it comes into view
+  const parts = document.querySelectorAll('[data-reveal], .reveal-lines');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      }
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.1 });
+    parts.forEach((el) => io.observe(el));
+  } else {
+    parts.forEach((el) => el.classList.add('is-in'));
   }
-
-  .hero-title {
-    font-size: clamp(2.5rem, 8vw, 4rem);
-    margin-bottom: var(--space-md);
-  }
-
-  .hero-tagline {
-    font-size: var(--font-size-lg);
-    margin-bottom: var(--space-md);
-  }
-
-  .typewriter-text {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    animation: typing 2s steps(45, end) forwards;
-    max-width: 0;
-  }
-
-  @keyframes typing {
-    to { max-width: 100%; }
-  }
-
-  .hero-subtitle {
-    font-size: var(--font-size-base);
-    margin-bottom: var(--space-lg);
-  }
-
-  .hero-nav {
-    display: flex;
-    justify-content: center;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
-
-  .nav-sep {
-    color: var(--text-secondary);
-  }
-
-  /* Section titles */
-  .section-title {
-    margin-bottom: var(--space-lg);
-  }
-
-  /* Projects grid */
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-lg);
-  }
-
-  /* Experience */
-  .experience-list {
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* Skills */
-  .skills-output {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .skill-line {
-    font-size: var(--font-size-sm);
-  }
-
-  /* Contact */
-  .contact-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-
-  .contact-line {
-    font-size: var(--font-size-base);
-  }
-
-  /* Footer */
-  .footer {
-    text-align: center;
-    padding: var(--space-xl) 0;
-    font-size: var(--font-size-sm);
-  }
-
-  /* Responsive */
-  @media (max-width: 600px) {
-    .hero-tagline {
-      font-size: var(--font-size-base);
-    }
-
-    .typewriter-text {
-      white-space: normal;
-      animation: none;
-      max-width: 100%;
-    }
-  }
-</style>
+</script>

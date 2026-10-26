@@ -1,0 +1,65 @@
+---
+// shunt as a terminal screen. The gauge under it is the one thing on the page a
+// visitor can do: drag it to set the write split, as `shunt ramp` does.
+import { render, still, gauge } from '../../scripts/screens/shunt';
+const screen = render(still(0.5));
+---
+
+<figure class="demo demo--term" data-ui data-demo="shunt">
+  <div class="demo__inner">
+    <pre class="term" aria-hidden="true" data-term set:html={screen}></pre>
+    <pre class="term-ctl">
+      <label for="shunt-ratio">WRITES TO B</label>
+      <span class="term-ctl__slide">
+        <span class="term-ctl__gauge" aria-hidden="true" data-gauge set:html={gauge(0.5)}></span>
+        <input id="shunt-ratio" type="range" min="0" max="100" step="5" value="50" aria-valuetext="50% of new writes to cluster B" />
+      </span>
+      <output for="shunt-ratio">50%</output>
+    </pre>
+  </div>
+  <figcaption class="sr-only">
+    Animation of shunt moving a bucket between clusters: clients write through shunt to cluster A, the
+    share of writes going to cluster B is ramped up, the mover copies the rest, shunt cuts over, deletes
+    the source copy and steps out so clients talk to cluster B directly. The slider sets the share of
+    writes sent to cluster B.
+  </figcaption>
+</figure>
+
+<script>
+  import { animate, reducedMotion } from '../../scripts/demo-kit';
+  import { create, step, render, still, setRatio, gauge } from '../../scripts/screens/shunt';
+
+  document.querySelectorAll<HTMLElement>('[data-demo="shunt"]').forEach((root) => {
+    const pre = root.querySelector<HTMLElement>('[data-term]')!;
+    const slider = root.querySelector<HTMLInputElement>('input[type="range"]')!;
+    const meter = root.querySelector<HTMLElement>('[data-gauge]')!;
+    const out = root.querySelector('output')!;
+    const show = (r: number) => {
+      const pct = Math.round(r * 100);
+      meter.innerHTML = gauge(r);
+      out.textContent = `${pct}%`;
+      slider.setAttribute('aria-valuetext', `${pct}% of new writes to cluster B`);
+    };
+
+    if (reducedMotion()) {
+      slider.addEventListener('input', () => {
+        const r = +slider.value / 100;
+        pre.innerHTML = render(still(r));
+        show(r);
+      });
+      return;
+    }
+
+    const state = create();
+    let shown = -1;
+    slider.addEventListener('input', () => setRatio(state, +slider.value / 100));
+    animate(root, pre, state, (s, dt) => {
+      step(s, dt);
+      if (s.ratio !== shown) {
+        shown = s.ratio;
+        if (document.activeElement !== slider) slider.value = String(Math.round(s.ratio * 100));
+        show(s.ratio);
+      }
+    }, render);
+  });
+</script>

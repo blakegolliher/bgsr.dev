@@ -1,0 +1,115 @@
+---
+// The roles come from the résumé at r.blake.engineering (src/data/experience.json).
+import experience from '../data/experience.json';
+---
+
+<section id="career" class="career" aria-labelledby="career-title">
+  <div class="career__head">
+    <h2 id="career-title" class="career__title reveal-lines">
+      <span class="line"><span data-line style="--i: 0">Twenty years</span></span>
+      <span class="line"><span data-line style="--i: 1">in infrastructure</span></span>
+    </h2>
+    <p class="career__bio" data-reveal style="--i: 2">
+      Linux user since the late ’90s, closet BSD fan, unabashed storage geek. Off the clock: music,
+      and Batman comics.
+    </p>
+  </div>
+
+  <ol class="roles" aria-label="Roles, most recent first">
+    {experience.map((job, i) => (
+      <li class="role" data-reveal style={`--i: ${Math.min(i, 3) + 3}`}>
+        <h3 class="role__company">{job.company}</h3>
+        <div class="role__body">
+          <p class="role__title">{job.role}</p>
+          {job.points.length > 0 && (
+            <ul class="role__points">
+              {job.points.map((point) => <li>{point}</li>)}
+            </ul>
+          )}
+        </div>
+        <p class="role__period">{job.period}</p>
+      </li>
+    ))}
+  </ol>
+
+  <p class="career__school" data-reveal>
+    Education: Mount Sierra College, Pasadena, CA. Major, Telecom Technologies. Minor, Goofing Around.
+  </p>
+</section>
+
+<style>
+  .career {
+    padding: var(--section-gap) var(--margin);
+    background: var(--field-1);
+    color: var(--field-1-ink);
+  }
+  .career__title { font-size: var(--step-head); }
+  .career__bio {
+    max-width: 36ch;
+    margin-top: 1.75rem;
+    font-size: var(--step-lead);
+    line-height: 1.35;
+  }
+
+  .roles {
+    display: grid;
+    gap: 2.25rem;
+    margin-top: clamp(3rem, 8vw, 6rem);
+    list-style: none;
+  }
+  .role {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: 1rem;
+  }
+  .role__company {
+    font-size: var(--step-lead);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .role__period {
+    font-size: var(--step-small);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    align-self: baseline;
+  }
+  .role__body { grid-column: 1 / -1; grid-row: 2; }
+  .role__title { margin-top: 0.2rem; font-weight: 500; }
+  .role__points {
+    display: grid;
+    gap: 0.3rem;
+    margin-top: 0.6rem;
+    max-width: 62ch;
+    list-style: none;
+  }
+  .career__school {
+    max-width: 62ch;
+    margin-top: clamp(3rem, 6vw, 4.5rem);
+    color: var(--muted);
+  }
+
+  @media (min-width: 900px) {
+    .career__head {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--gutter);
+      align-items: end;
+    }
+    .career__title { grid-column: 1 / 8; }
+    .career__bio { grid-column: 8 / 13; margin-top: 0; }
+
+    .roles { gap: 2.75rem; }
+    .role {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--gutter);
+      align-items: baseline;
+    }
+    .role__company { grid-column: 1 / 4; }
+    .role__body { grid-column: 4 / 11; grid-row: auto; }
+    .role__title { margin-top: 0; font-size: var(--step-lead); line-height: 1.2; }
+    .role__period { grid-column: 11 / 13; text-align: right; }
+    .career__school { margin-left: calc((100% - 11 * var(--gutter)) / 12 * 3 + 3 * var(--gutter)); }
+  }
+</style>

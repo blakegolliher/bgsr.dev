@@ -1,26 +1,98 @@
 [
   {
-    "company": "Vast Data",
+    "company": "VAST Data",
     "role": "Field CTO",
-    "period": "2025 - Present",
-    "description": "Technical leadership and strategic guidance for enterprise data infrastructure solutions."
+    "period": "2025 – now",
+    "points": []
   },
   {
     "company": "Tesla",
-    "role": "Senior Mananger AutoPilot Storage",
-    "period": "2022 - 2025",
-    "description": "Leading platform engineering initiatives for infrastructure automation and developer experience."
+    "role": "Sr. Staff Engineer",
+    "period": "Nov 2021 – 2025",
+    "points": [
+      "Platform Engineering ownership of the Storage Plank",
+      "Responsible for Platform Engineering Object Storage company wide",
+      "First principles around service offering and ownership"
+    ]
   },
   {
-    "company": "Box",
-    "role": "Senior Manager Storage / Observabilty / Analytics Engineering",
-    "period": "2018 - 2021",
-    "description": "nfrastructure and platform systems for enterprise cloud storage."
+    "company": "Instacart",
+    "role": "Sr. Engineering Manager",
+    "period": "Feb 2021 – Nov 2021",
+    "points": [
+      "Responsible for Incident Response, and RCA",
+      "Dev/Staging environment Management",
+      "Observability Engineering",
+      "As well as other things (Cloud Spend, WebServ layer, etc.)."
+    ]
   },
   {
-    "company": "Apple",
-    "role": "Manager Storage SRE",
-    "period": "2011 - 2016",
-    "description": "Infrastructure engineering for large-scale systems and services."
+    "company": "Box Inc.",
+    "role": "Senior Manager Engineering",
+    "period": "Dec 2018 – Feb 2021",
+    "points": [
+      "Built and developed talented teams of engineers solving problems through software",
+      "Co-led a hybrid team of engineers modeling finances, helped win massive discounts on public cloud",
+      "Took over and hired a brand new Observability Engineering team",
+      "Took over and led a brand new Data Analytics Infra team"
+    ]
+  },
+  {
+    "company": "Apple Inc.",
+    "role": "Security Engineer",
+    "period": "Dec 2017 – Dec 2018",
+    "points": [
+      "Software Engineering / Delivery Org Hardening",
+      "Proxy Services DRI",
+      "Ensuring secure practices in custom software for macOS/iOS build trains"
+    ]
+  },
+  {
+    "company": "Amazon AWS",
+    "role": "Sr. Technical Account Manager",
+    "period": "Feb 2017 – Nov 2017",
+    "points": [
+      "Led automation efforts inside of AWS Global Support",
+      "Provided support to AWS's largest customer",
+      "Founded Field SRE team"
+    ]
+  },
+  {
+    "company": "Apple Inc.",
+    "role": "SRE Manager",
+    "period": "Aug 2011 – Feb 2017",
+    "points": [
+      "Technical vision and leadership for iTunes Storage Infrastructure",
+      "Cofounded Blob SRE team working with Development (DevOps)",
+      "Managed team building a self provisioning web service"
+    ]
+  },
+  {
+    "company": "DreamWorks Animation Studios Inc.",
+    "role": "Sr. Architect",
+    "period": "Aug 2010 – July 2011",
+    "points": [
+      "Designed and built next generation storage and network infrastructure",
+      "Supported render animation, backend support infrastructure, and Oracle DB",
+      "Designed and implemented first large scale SAN in the environment"
+    ]
+  },
+  {
+    "company": "Facebook Inc.",
+    "role": "Sr. Architect",
+    "period": "Nov 2006 – Nov 2008",
+    "points": [
+      "Owned production storage for photo, video, log, and everything in between",
+      "Hired staff of 4, built run books, automation and monitoring"
+    ]
+  },
+  {
+    "company": "Yahoo! Inc.",
+    "role": "Architect",
+    "period": "Sept 2005 – Nov 2006",
+    "points": [
+      "Responsible for architecture and engineering storage for Yahoo! Mail, Oracle DB and a few other properties",
+      "Built run books, started automation and monitoring of devices"
+    ]
   }
 ]

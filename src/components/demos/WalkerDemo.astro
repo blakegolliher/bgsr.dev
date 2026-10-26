@@ -1,0 +1,28 @@
+---
+// nfs-walker as `tree` output growing beside the Parquet shards it streams into,
+// then `nfs-walker serve` and its dashboard. Without script it shows a finished pass.
+import { render, still } from '../../scripts/screens/walker';
+const screen = render(still());
+---
+
+<figure class="demo demo--term" data-ui data-demo="walker">
+  <div class="demo__inner">
+    <pre class="term" aria-hidden="true" data-term set:html={screen}></pre>
+  </div>
+  <figcaption class="sr-only">
+    Animation of nfs-walker: a directory tree grows as workers list each directory with READDIRPLUS,
+    and every entry found is written to one of 32 Parquet shards. The counters replay the 810.8
+    million-file production run as a time-lapse. Then nfs-walker serve starts the web dashboard built
+    into the same binary, which pages through charts queried live from the Parquet files.
+  </figcaption>
+</figure>
+
+<script>
+  import { animate, reducedMotion } from '../../scripts/demo-kit';
+  import { create, step, render } from '../../scripts/screens/walker';
+
+  document.querySelectorAll<HTMLElement>('[data-demo="walker"]').forEach((root) => {
+    if (reducedMotion()) return;
+    animate(root, root.querySelector<HTMLElement>('[data-term]')!, create(), step, render);
+  });
+</script>

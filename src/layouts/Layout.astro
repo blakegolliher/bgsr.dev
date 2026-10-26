@@ -4,35 +4,37 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Blake Golliher - Infrastructure & Platform Engineering" } = Astro.props;
+const {
+  title,
+  description = 'Blake Golliher, Field CTO at VAST Data, writes open-source tools that move and measure live storage: shunt, mongoose, nfs-walker and s3slower.',
+} = Astro.props;
+const image = new URL('/images/blake.jpg', Astro.site).href;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#ff7a1f" />
     <meta name="generator" content={Astro.generator} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:url" content={Astro.site} />
 
-    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
+    <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,800&display=swap" />
 
     <title>{title}</title>
+    <script is:inline>document.documentElement.classList.add('js')</script>
   </head>
   <body>
-    <!-- Scanlines overlay -->
-    <div class="scanlines" aria-hidden="true"></div>
-
-    <!-- Main content -->
-    <main class="crt-effect">
-      <slot />
-    </main>
+    <slot />
   </body>
 </html>
 

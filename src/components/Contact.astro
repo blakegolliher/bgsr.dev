@@ -1,0 +1,83 @@
+---
+const email = 'blakegolliher@gmail.com';
+const [user, domain] = email.split('@');
+---
+
+<section id="contact" class="contact" aria-labelledby="contact-title">
+  <p class="contact__note" data-reveal>Write about storage, migrations, or world domination.</p>
+  <h2 id="contact-title" class="contact__email reveal-lines" data-fit>
+    <a href={`mailto:${email}`}>
+      <span class="line"><span data-line style="--i: 0">{user}@<br class="contact__break" />{domain}</span></span>
+    </a>
+  </h2>
+  <div class="contact__foot" data-reveal style="--i: 2">
+    <p>Grand Rapids, Michigan</p>
+    <p><a class="link" href="https://github.com/blakegolliher">GitHub</a></p>
+  </div>
+</section>
+
+<style>
+  .contact {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: clamp(3rem, 10vw, 5rem);
+    padding: var(--margin) var(--margin) calc(var(--margin) + 0.5rem);
+    background: var(--ink);
+    color: var(--accent-ink);
+  }
+  .contact__note {
+    max-width: 26ch;
+    font-size: var(--step-lead);
+    line-height: 1.35;
+  }
+  .contact__email {
+    align-self: center;
+    font-size: 11.5vw;
+    font-weight: 500;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+  }
+  .contact__email a {
+    display: block;
+    text-decoration: none;
+    transition: color var(--t-hover) ease;
+  }
+  .contact__email .line { padding-bottom: 0.12em; margin-bottom: -0.12em; }
+  .contact__foot {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: var(--step-body);
+  }
+  .contact__foot a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .contact__email a:hover { color: var(--field-1); }
+  }
+
+  @media (min-width: 1100px) {
+    .contact { min-height: 62svh; gap: 0; }
+  }
+  @media (min-width: 700px) {
+    .contact__email {
+      align-self: end;
+      margin-bottom: 8svh;
+      font-size: 8vw;
+      white-space: nowrap;
+    }
+    .contact__break { display: none; }
+    .contact__foot {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+</style>
+
+<script>
+  import { fitText } from '../scripts/fit';
+  fitText();
+</script>

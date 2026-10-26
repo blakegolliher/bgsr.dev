@@ -1,0 +1,264 @@
+---
+import projects from '../data/projects.json';
+import ShuntDemo from './demos/ShuntDemo.astro';
+import MongooseDemo from './demos/MongooseDemo.astro';
+import VamooseDemo from './demos/VamooseDemo.astro';
+import WalkerDemo from './demos/WalkerDemo.astro';
+import GazeDemo from './demos/GazeDemo.astro';
+import SlowerDemo from './demos/SlowerDemo.astro';
+import PolicyDemo from './demos/PolicyDemo.astro';
+import '../styles/demo.css';
+
+const demos: Record<string, typeof ShuntDemo> = {
+  shunt: ShuntDemo,
+  mongoose: MongooseDemo,
+  vamoose: VamooseDemo,
+  'nfs-walker': WalkerDemo,
+  'nfs-gaze': GazeDemo,
+  s3slower: SlowerDemo,
+  'vast-bucket-policy-manager': PolicyDemo,
+};
+---
+
+<section id="tools" class="tools" aria-labelledby="tools-title" data-tools style={`--count: ${projects.length}`}>
+  <div class="tools__stage">
+    <h2 id="tools-title" class="tools__title reveal-lines">
+      <span class="line"><span data-line style="--i: 0">Tools I’ve</span></span>
+      <span class="line"><span data-line style="--i: 1">authored</span></span>
+    </h2>
+
+    {projects.map((p, i) => {
+      const Demo = demos[p.id];
+      return (
+        <Fragment>
+          <article class:list={['tool', i === 0 && 'is-current']} data-tool={i} aria-labelledby={`tool-${p.id}`}>
+            <h3 id={`tool-${p.id}`} class="tool__name">{p.name}</h3>
+            <p class="tool__kinds">{p.kinds}</p>
+            <p class="tool__summary">{p.summary}</p>
+            <p class="tool__note">{p.note}</p>
+            <a class="tool__link link" href={p.url}>{p.name} on GitHub</a>
+          </article>
+          <div class:list={['tool__screen', i === 0 && 'is-current']} data-screen={i}>
+            <Demo />
+          </div>
+        </Fragment>
+      );
+    })}
+
+    <ul class="tools__index" aria-label="Tools">
+      {projects.map((p, i) => (
+        <li>
+          <button type="button" data-goto={i} aria-current={i === 0 ? 'true' : 'false'}>
+            <span class="tools__name">{p.name}</span>
+            <span class="tools__kinds">{p.kinds}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  /* Stacked: phones, tablets, and any screen without script */
+  .tools {
+    position: relative;
+    padding: var(--section-gap) var(--margin) 0;
+  }
+  .tools__title {
+    font-size: var(--step-head);
+    margin-bottom: clamp(2.5rem, 7vw, 4.5rem);
+  }
+  .tool { max-width: 40rem; }
+  .tool__name {
+    font-size: var(--step-lead);
+    letter-spacing: -0.02em;
+  }
+  .tool__kinds {
+    margin-top: 0.35rem;
+    font-size: var(--step-small);
+    color: var(--muted);
+  }
+  .tool__summary { margin-top: 1rem; max-width: 46ch; }
+  .tool__note { margin-top: 0.6rem; max-width: 46ch; color: var(--muted); }
+  .tool__link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    margin-top: 0.5rem;
+    font-weight: 500;
+  }
+  .tool__screen {
+    margin: 1.5rem calc(-1 * var(--margin)) var(--section-gap);
+  }
+  .tools__index { display: none; }
+
+  .tools__index button {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    width: 100%;
+    min-height: 44px;
+    padding: 0;
+    background: none;
+    border: 0;
+    color: var(--muted);
+    text-align: left;
+    cursor: pointer;
+    transition: color var(--t-hover) ease;
+  }
+  .tools__index button[aria-current='true'] { color: var(--ink); }
+  .tools__name {
+    font-size: var(--step-lead);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .tools__kinds { font-size: var(--step-small); }
+  @media (hover: hover) and (pointer: fine) {
+    .tools__index button:hover { color: var(--ink); }
+  }
+
+  /* Held stage: the index stays put, the screen on the right changes. A grid keeps
+     the summary in the space left between the heading and the index. */
+  @media (min-width: 1000px) {
+    :global(.js) .tools {
+      --step: 27svh;
+      height: calc(100svh + var(--count) * var(--step));
+      padding: 0;
+    }
+    :global(.js) .tools__stage {
+      position: sticky;
+      top: 0;
+      display: grid;
+      grid-template-columns: 38% 62%;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      height: 100svh;
+      overflow: clip;
+    }
+    :global(.js) .tools__title {
+      grid-area: 1 / 1;
+      margin: 0;
+      padding: clamp(2rem, 7svh, 4.5rem) var(--margin) 0;
+      /* "Tools I’ve" has to fit the 38% column on one line */
+      font-size: min(var(--step-head), 5.4vw);
+    }
+    :global(.js) .tool {
+      grid-area: 2 / 1;
+      align-self: center;
+      padding: 1.25rem var(--margin);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 200ms ease, visibility 0s linear 200ms;
+    }
+    :global(.js) .tool.is-current {
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 420ms ease 160ms;
+    }
+    /* visually hidden: the index carries the name and kinds here */
+    :global(.js) .tool__name,
+    :global(.js) .tool__kinds {
+      position: absolute;
+      width: 1px;
+      height: 1px; /* taste-skill-ignore */
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      white-space: nowrap;
+    }
+    :global(.js) .tool__summary { margin-top: 0; }
+    :global(.js) .tool__screen {
+      grid-area: 1 / 2 / 4 / 3;
+      position: relative;
+      margin: 0;
+      z-index: 1;
+      clip-path: inset(100% 0 0 0);
+    }
+    :global(.js) .tool__screen.is-prev { z-index: 2; clip-path: inset(0); }
+    :global(.js) .tool__screen.is-current {
+      z-index: 3;
+      clip-path: inset(0);
+      transition: clip-path 900ms var(--ease-in-out);
+    }
+    :global(.js) .tools__index {
+      display: block;
+      grid-area: 3 / 1;
+      padding: 0 var(--margin) var(--margin);
+    }
+    .tools__index button { min-height: 38px; }
+    /* the long names shrink with the column rather than wrap */
+    .tools__name { font-size: min(var(--step-lead), 2.1vw); }
+  }
+
+  /* short screens: the second line of each summary gives way to the index */
+  @media (min-width: 1000px) and (max-height: 820px) {
+    :global(.js) .tool__note { display: none; }
+  }
+
+  @media (min-width: 1000px) and (prefers-reduced-motion: reduce) {
+    :global(.js) .tool__screen.is-current { transition: none; }
+  }
+</style>
+
+<script>
+  import { reducedMotion } from '../scripts/demo-kit';
+
+  const root = document.querySelector<HTMLElement>('[data-tools]');
+  if (root) {
+    const tools = [...root.querySelectorAll<HTMLElement>('.tool')];
+    const screens = [...root.querySelectorAll<HTMLElement>('.tool__screen')];
+    const buttons = [...root.querySelectorAll<HTMLButtonElement>('[data-goto]')];
+    const wide = window.matchMedia('(min-width: 1000px)');
+    let current = 0;
+    let settle = 0;
+    let queued = false;
+
+    const hideOthers = () => {
+      screens.forEach((s, k) => {
+        if (k === current) return;
+        s.classList.remove('is-prev');
+        s.setAttribute('data-hidden', '');
+      });
+    };
+    const show = (i: number) => {
+      if (i === current) return;
+      const prev = current;
+      current = i;
+      screens.forEach((s, k) => {
+        s.classList.toggle('is-current', k === i);
+        s.classList.toggle('is-prev', k === prev);
+      });
+      screens[i].removeAttribute('data-hidden');
+      tools.forEach((t, k) => t.classList.toggle('is-current', k === i));
+      buttons.forEach((b, k) => b.setAttribute('aria-current', String(k === i)));
+      clearTimeout(settle);
+      settle = window.setTimeout(hideOthers, 950);
+    };
+    const step = () => (root.offsetHeight - window.innerHeight) / screens.length;
+    const onScroll = () => {
+      queued = false;
+      if (!wide.matches) return;
+      const p = -root.getBoundingClientRect().top;
+      show(Math.max(0, Math.min(screens.length - 1, Math.floor(p / step()))));
+    };
+    const layout = () => {
+      if (wide.matches) {
+        hideOthers();
+        onScroll();
+      } else {
+        screens.forEach((s) => s.removeAttribute('data-hidden'));
+      }
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!queued) {
+        queued = true;
+        requestAnimationFrame(onScroll);
+      }
+    }, { passive: true });
+    wide.addEventListener('change', layout);
+    buttons.forEach((b, k) => b.addEventListener('click', () => {
+      window.scrollTo({ top: root.offsetTop + step() * (k + 0.5), behavior: reducedMotion() ? 'auto' : 'smooth' });
+    }));
+    layout();
+  }
+</script>

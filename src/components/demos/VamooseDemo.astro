@@ -1,0 +1,29 @@
+---
+// vamoose as a run log: shard claims in S3, a host going down, verify.
+// Without script it shows the verified run.
+import { render, still } from '../../scripts/screens/vamoose';
+const screen = render(still());
+---
+
+<figure class="demo demo--term" data-ui data-demo="vamoose">
+  <div class="demo__inner">
+    <pre class="term" aria-hidden="true" data-term set:html={screen}></pre>
+  </div>
+  <figcaption class="sr-only">
+    Animation of vamoose: vamoose prepare uploads a Parquet index of the source tree to S3, then
+    workers on four hosts claim shards with conditional PUT requests; one wins each shard and the
+    others are refused with 412. When host-c goes down, its claim goes stale and another worker
+    deletes it and claims the shard. Finally vamoose verify compares both trees and writes a metadata
+    certificate.
+  </figcaption>
+</figure>
+
+<script>
+  import { animate, reducedMotion } from '../../scripts/demo-kit';
+  import { create, step, render } from '../../scripts/screens/vamoose';
+
+  document.querySelectorAll<HTMLElement>('[data-demo="vamoose"]').forEach((root) => {
+    if (reducedMotion()) return;
+    animate(root, root.querySelector<HTMLElement>('[data-term]')!, create(), step, render);
+  });
+</script>

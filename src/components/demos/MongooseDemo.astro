@@ -1,0 +1,27 @@
+---
+// mongoose as a two-pane file manager. Without script it shows the verified copy.
+import { render, STILL_MS } from '../../scripts/screens/mongoose';
+const screen = render(STILL_MS);
+---
+
+<figure class="demo demo--term" data-ui data-demo="mongoose">
+  <div class="demo__inner">
+    <pre class="term" aria-hidden="true" data-term set:html={screen}></pre>
+  </div>
+  <figcaption class="sr-only">
+    Animation of mongoose copying an NFS tree from old-server to new-server: it scans and copies,
+    people change files on the old server, sync copies only the changes, and the cutover reads every
+    file back from both servers and compares them before reporting that the trees match.
+  </figcaption>
+</figure>
+
+<script>
+  import { animate, reducedMotion } from '../../scripts/demo-kit';
+  import { render, LOOP_MS } from '../../scripts/screens/mongoose';
+
+  document.querySelectorAll<HTMLElement>('[data-demo="mongoose"]').forEach((root) => {
+    if (reducedMotion()) return;
+    const pre = root.querySelector<HTMLElement>('[data-term]')!;
+    animate(root, pre, { t: 0 }, (s, dt) => { s.t = (s.t + dt) % LOOP_MS; }, (s) => render(s.t));
+  });
+</script>

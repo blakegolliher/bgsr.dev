@@ -1,0 +1,27 @@
+---
+// s3slower as a live terminal view: requests timed at the TLS library, rows in
+// the latency table. Without script it shows the README's sample rows.
+import { render, create } from '../../scripts/screens/slower';
+const screen = render(create());
+---
+
+<figure class="demo demo--term" data-ui data-demo="slower">
+  <div class="demo__inner">
+    <pre class="term" aria-hidden="true" data-term set:html={screen}></pre>
+  </div>
+  <figcaption class="sr-only">
+    Animation of s3slower: requests from boto3, the AWS CLI, mc, rclone and elbencho pass the eBPF
+    probes in the TLS library on their way to the S3 endpoint and back, and each one appears as a row
+    with its latency.
+  </figcaption>
+</figure>
+
+<script>
+  import { animate, reducedMotion } from '../../scripts/demo-kit';
+  import { create, step, render } from '../../scripts/screens/slower';
+
+  document.querySelectorAll<HTMLElement>('[data-demo="slower"]').forEach((root) => {
+    if (reducedMotion()) return;
+    animate(root, root.querySelector<HTMLElement>('[data-term]')!, create(), step, render);
+  });
+</script>
