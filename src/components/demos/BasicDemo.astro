@@ -1,0 +1,16 @@
+---
+// Stands in for a tool that has no demo yet, so a new entry in projects.json
+// shows up with a screen as soon as it is added. It does not animate.
+import { render, type Project } from '../../scripts/screens/basic';
+
+interface Props { project: Project }
+const { project } = Astro.props;
+const screen = render(project);
+---
+
+<figure class="demo demo--term" data-ui>
+  <div class="demo__inner">
+    <pre class="term" aria-hidden="true" set:html={screen}></pre>
+  </div>
+  <figcaption class="sr-only">{project.name}: {project.summary}</figcaption>
+</figure>

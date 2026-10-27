@@ -2,13 +2,13 @@
   {
     "company": "VAST Data",
     "role": "Field CTO",
-    "period": "2025 – now",
+    "period": "March 2025 – Today",
     "points": []
   },
   {
     "company": "Tesla",
-    "role": "Sr. Staff Engineer",
-    "period": "Nov 2021 – 2025",
+    "role": "Sr. Staff Engineer, Head of Object Storage",
+    "period": "Nov 2021 – March 2025",
     "points": [
       "Platform Engineering ownership of the Storage Plank",
       "Responsible for Platform Engineering Object Storage company wide",
@@ -17,7 +17,7 @@
   },
   {
     "company": "Instacart",
-    "role": "Sr. Engineering Manager",
+    "role": "Head of SRE",
     "period": "Feb 2021 – Nov 2021",
     "points": [
       "Responsible for Incident Response, and RCA",
@@ -39,7 +39,7 @@
   },
   {
     "company": "Apple Inc.",
-    "role": "Security Engineer",
+    "role": "Security Engineer - Build Infra",
     "period": "Dec 2017 – Dec 2018",
     "points": [
       "Software Engineering / Delivery Org Hardening",
@@ -54,7 +54,6 @@
     "points": [
       "Led automation efforts inside of AWS Global Support",
       "Provided support to AWS's largest customer",
-      "Founded Field SRE team"
     ]
   },
   {
@@ -62,8 +61,8 @@
     "role": "SRE Manager",
     "period": "Aug 2011 – Feb 2017",
     "points": [
-      "Technical vision and leadership for iTunes Storage Infrastructure",
-      "Cofounded Blob SRE team working with Development (DevOps)",
+      "Technical vision and leadership for iTunes / iCloud Storage Infrastructure",
+      "Cofounded Blob SRE team working with Development",
       "Managed team building a self provisioning web service"
     ]
   },
@@ -91,8 +90,19 @@
     "role": "Architect",
     "period": "Sept 2005 – Nov 2006",
     "points": [
-      "Responsible for architecture and engineering storage for Yahoo! Mail, Oracle DB and a few other properties",
+      "Responsible for architecture and engineering storage for Yahoo! Mail,
+Oracle DBs, Geocities and other properties",
       "Built run books, started automation and monitoring of devices"
+    ]
+  },
+  {
+    "company": "Network Appliance",
+    "role": "Escalations Support",
+    "period": "Feb 2001 – Sept 2005",
+    "points": [
+      "Technical Support for NetApp Storage, focusing on NFS, data reliability,
+and performance",
+      "Moved into Technical Marketing for High Performance"
     ]
   }
 ]

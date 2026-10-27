@@ -7,9 +7,11 @@ import WalkerDemo from './demos/WalkerDemo.astro';
 import GazeDemo from './demos/GazeDemo.astro';
 import SlowerDemo from './demos/SlowerDemo.astro';
 import PolicyDemo from './demos/PolicyDemo.astro';
+import BasicDemo from './demos/BasicDemo.astro';
 import '../styles/demo.css';
 
-const demos: Record<string, typeof ShuntDemo> = {
+// A tool without an entry here gets BasicDemo, a still screen built from its JSON
+const demos: Record<string, typeof ShuntDemo | undefined> = {
   shunt: ShuntDemo,
   mongoose: MongooseDemo,
   vamoose: VamooseDemo,
@@ -39,7 +41,7 @@ const demos: Record<string, typeof ShuntDemo> = {
             <a class="tool__link link" href={p.url}>{p.name} on GitHub</a>
           </article>
           <div class:list={['tool__screen', i === 0 && 'is-current']} data-screen={i}>
-            <Demo />
+            {Demo ? <Demo /> : <BasicDemo project={p} />}
           </div>
         </Fragment>
       );

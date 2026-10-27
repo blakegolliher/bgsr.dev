@@ -9,7 +9,7 @@ from that tool's README.
 
 ## Run it
 
-You need Node 20 or newer.
+You need Node 22 or newer.
 
 ```sh
 npm install
@@ -26,6 +26,7 @@ run the workflow by hand from the Actions tab.
 
 ## Change the content
 
+[UPDATING.md](UPDATING.md) walks through each of these step by step, git commands included.
 Most edits are data, not markup:
 
 | To change | Edit |
@@ -37,8 +38,9 @@ Most edits are data, not markup:
 | Photo credits and footer links | `src/components/Footer.astro` |
 
 Each entry in `projects.json` needs an `id`. `src/components/Tools.astro` maps that id to its
-demo component, so a new tool also needs a screen in `src/scripts/screens/` and a demo in
-`src/components/demos/` before it shows up properly.
+demo component. A tool with no demo in that map gets `BasicDemo`, a still screen built from its
+JSON (name, `git clone` line, summary, note). To animate it, add a screen in
+`src/scripts/screens/` and a demo in `src/components/demos/`, and map its id to the demo.
 
 ## How the page is put together
 
