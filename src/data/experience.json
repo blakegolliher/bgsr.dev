@@ -53,7 +53,7 @@
     "period": "Feb 2017 – Nov 2017",
     "points": [
       "Led automation efforts inside of AWS Global Support",
-      "Provided support to AWS's largest customer",
+      "Provided support to AWS's largest customer"
     ]
   },
   {
@@ -90,8 +90,7 @@
     "role": "Architect",
     "period": "Sept 2005 – Nov 2006",
     "points": [
-      "Responsible for architecture and engineering storage for Yahoo! Mail,
-Oracle DBs, Geocities and other properties",
+      "Responsible for architecture and engineering storage for Yahoo! Mail, Oracle DBs, Geocities and other properties",
       "Built run books, started automation and monitoring of devices"
     ]
   },
@@ -100,8 +99,7 @@ Oracle DBs, Geocities and other properties",
     "role": "Escalations Support",
     "period": "Feb 2001 – Sept 2005",
     "points": [
-      "Technical Support for NetApp Storage, focusing on NFS, data reliability,
-and performance",
+      "Technical Support for NetApp Storage, focusing on NFS, data reliability, and performance",
       "Moved into Technical Marketing for High Performance"
     ]
   }
