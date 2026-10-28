@@ -52,9 +52,7 @@
     "name": "s3lister",
     "url": "https://github.com/blakegolliher/s3lister",
     "kinds": "S3, eBPF, Go",
-    "summary": "Similar to nfs-walker, but for s3.  Lists all the objects in a
-bucket, very quickly with many thread and creates a parquetdb to help with
-analysis of the data."
+    "summary": "Similar to nfs-walker, but for s3.  Lists all the objects in a bucket, very quickly with many thread and creates a parquetdb to help with analysis of the data."
     "note": "227 million objects nested deap in 7 minutes.""
   },
   {
